@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Platforms>x64</Platforms>
+        <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+        <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <GameFolder>$(MD_DIRECTORY)</GameFolder>
+        <MelonNet6>$(GameFolder)/MelonLoader/net6/</MelonNet6>
+        <MelonAssemblies>$(GameFolder)/MelonLoader/Il2CppAssemblies/</MelonAssemblies>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="$(MelonNet6)0Harmony.dll" Private="false"/>
+        <Reference Include="$(MelonNet6)Il2CppInterop.Common.dll" Private="false"/>
+        <Reference Include="$(MelonNet6)Il2CppInterop.Runtime.dll" Private="false"/>
+        <Reference Include="$(MelonNet6)MelonLoader.dll" Private="false"/>
+        <Reference Include="$(MelonAssemblies)Assembly-CSharp.dll" Private="false"/>
+        <Reference Include="$(MelonAssemblies)Assembly-CSharp-firstpass.dll" Private="false"/>
+        <Reference Include="$(MelonAssemblies)Il2CppDOTween.dll" Private="false"/>
+        <Reference Include="$(MelonAssemblies)Il2Cppmscorlib.dll" Private="false"/>
+        <Reference Include="$(MelonAssemblies)Il2CppSirenix.Serialization.dll" Private="false"/>
+        <Reference Include="$(MelonAssemblies)UnityEngine.AudioModule.dll" Private="false"/>
+        <Reference Include="$(MelonAssemblies)UnityEngine.CoreModule.dll" Private="false"/>
+        <Reference Include="$(MelonAssemblies)UnityEngine.TextRenderingModule.dll" Private="false"/>
+        <Reference Include="$(MelonAssemblies)UnityEngine.UI.dll" Private="false"/>
+        <Reference Include="$(MelonAssemblies)UnityEngine.UIModule.dll" Private="false"/>
+    </ItemGroup>
+
+    <Target Name="CopyMod" AfterTargets="Build" Condition="'$(WORKER)' != 'GitHub'">
+        <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFolder="$(GameFolder)/Mods"/>
+        <Message Text="Copied assembly to '$(GameFolder)/Mods/$(ProjectName).dll'" Importance="High"/>
+    </Target>
+
+</Project>
