@@ -149,6 +149,8 @@ internal sealed class SupremeToggle
     internal void AfterToggleDiff()
     {
         isSyncing = false;
+
+        if (toggle.isOn && !IsSelected(Tags.CurMusicInfo(), out _)) toggle.SetIsOnWithoutNotify(false);
     }
 
     internal bool OnToggleChanged(Toggle changed, bool state)
